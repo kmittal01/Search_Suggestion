@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Insert a new object</title>
+<script src="/jquery.js"></script>
+<script src="/search_suggest.js"></script>
+<script>
+function insert() {
+  myDataRef=new search_suggest();
+  var json_string=$("#insertObject1").val();
+  myDataRef.insert(json_string,function(data) {
+      $('#insertReturn').html(data);     
+    });
+}
+
+function search() {
+  myDataRef=new search_suggest();
+  var prefix=$("#search1").val();
+  myDataRef.search(prefix,function(data) {
+      $('#searchReturn').html(data);     
+    });
+}
+</script>
+</head>
+
+<body>
+  <h1>Add a new Object</h1>
+  <form id="ins">
+    Object:<input type="text" name="insertObject1" id="insertObject1" /> 
+    <input type="button" value="insert" onclick="insert()" />
+  </form><br />
+<div id="insertReturn"> </div>
+
+  <h1>Search</h1>
+  <form id="search">
+    Search:<input type="text" name="search1" id="search1" /> 
+    <input type="button" value="search" onclick="search()" />
+  </form><br />
+<div id="searchReturn"> </div>
+
+</body>
+</html>
