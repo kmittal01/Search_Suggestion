@@ -6,6 +6,9 @@
 <script src="/jquery.js"></script>
 <script src="/search_suggest.js"></script>
 <script>
+var start;
+var end;
+var time;
 function insert() {
   myDataRef=new search_suggest();
   var json_string=$("#insertObject1").val();
@@ -14,13 +17,22 @@ function insert() {
     });
 }
 
-function search() {
+$(document).ready(function(){
+  start=new Date().getTime();
+  $("#search1").keyup(function() {
+  var prefix=$("#search1").val();
+  if (prefix.length<2) {
+    return;
+  }
   myDataRef=new search_suggest();
   var prefix=$("#search1").val();
-  myDataRef.search(prefix,function(data) {
-      $('#searchReturn').html(data);     
-    });
-}
+  myDataRef.search(prefix.toLowerCase(),function(data) {
+      end = new Date().getTime();
+      time = end - start;
+      $('#searchReturn').html('Execution time is '+time+' miliseconds<br>'+ data);     
+    }); 
+});
+});
 </script>
 </head>
 
@@ -35,7 +47,7 @@ function search() {
   <h1>Search</h1>
   <form id="search">
     Search:<input type="text" name="search1" id="search1" /> 
-    <input type="button" value="search" onclick="search()" />
+    <!-- <input type="button" value="search" onclick="search()" /> -->
   </form><br />
 <div id="searchReturn"> </div>
 
